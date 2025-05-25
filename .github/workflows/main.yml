@@ -1,0 +1,24 @@
+name: 🚀 FTP Deploy to InfinityFree
+
+on:
+  push:
+    branches:
+      - main  # or your working branch
+
+jobs:
+  ftp-deploy:
+    name: Upload Theme via FTP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: FTP deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_REMOTE_DIR }}/
+          local-dir: ./my-custom-theme
